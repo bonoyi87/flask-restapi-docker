@@ -50,11 +50,6 @@ class CompanyTag(db.Model):
     created_at = db.Column(db.TIMESTAMP, default=dt.datetime.utcnow, nullable=False)
     updated_at = db.Column(db.TIMESTAMP, onupdate=dt.datetime.utcnow)
 
-    def __init__(self, company_id, tag, lang):
-        self.company_id = company_id
-        self.tag = tag
-        self.lang = lang
-
 
 class SearchCompany(db.Model):
     __tablename__ = 'search_companies'
