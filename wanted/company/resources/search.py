@@ -10,7 +10,7 @@ from wanted.company.models.company import Tag
 
 
 class SearchType(Enum):
-    COMPANY = 'comany'
+    COMPANY = 'company'
     TAG = 'tag'
 
 
