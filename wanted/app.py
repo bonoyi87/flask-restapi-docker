@@ -1,6 +1,6 @@
 from flask import Flask
 
-from wanted.extensions import db
+from wanted.extensions import db, migrate
 
 
 def create_app(config_object='wanted.settings'):
@@ -18,6 +18,7 @@ def create_app(config_object='wanted.settings'):
 def register_extensions(app):
     """Register Flask extensions."""
     db.init_app(app)
+    migrate.init_app(app, db)
 
     return None
 
