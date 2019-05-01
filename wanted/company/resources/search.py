@@ -5,8 +5,7 @@ from flask_restful import Resource, fields, marshal_with
 from flask import request
 
 from utils.word import seperate_word
-from wanted.company.models import SearchCompany, Company, CompanyTag
-from wanted.company.models.company import Tag
+from wanted.company.models import SearchCompany, Company, CompanyTag, Tag
 
 
 class SearchType(Enum):
