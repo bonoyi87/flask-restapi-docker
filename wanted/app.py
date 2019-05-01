@@ -12,6 +12,7 @@ def create_app(config_object='wanted.settings'):
     app = Flask(__name__.split('.')[0])
     app.config.from_object(config_object)
     register_extensions(app)
+    register_blueprints(app)
 
     return app
 
@@ -23,3 +24,8 @@ def register_extensions(app):
 
     return None
 
+
+def register_blueprints(app):
+    """Register Flask blueprints."""
+    app.register_blueprint(company.views.blueprint)
+    return None
