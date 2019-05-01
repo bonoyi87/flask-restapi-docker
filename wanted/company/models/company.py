@@ -1,14 +1,11 @@
-import datetime as dt
-
+from wanted.commons.database import TimestampMixin
 from wanted.extensions import db
 
 
-class Company(db.Model):
+class Company(db.Model, TimestampMixin):
     __tablename__ = 'companies'
 
     id = db.Column(db.Integer, primary_key=True)
-    created_at = db.Column(db.TIMESTAMP, default=dt.datetime.utcnow, nullable=False)
-    updated_at = db.Column(db.TIMESTAMP, onupdate=dt.datetime.utcnow)
 
     names = db.relationship('CompanyName',
                             backref='companies', lazy='joined')
@@ -17,7 +14,7 @@ class Company(db.Model):
                            backref='companies', lazy='joined')
 
 
-class CompanyName(db.Model):
+class CompanyName(db.Model, TimestampMixin):
     __tablename__ = 'company_names'
     __table_args__ = (
         db.UniqueConstraint('company_id', 'lang'),
@@ -27,11 +24,9 @@ class CompanyName(db.Model):
     company_id = db.Column(db.Integer, db.ForeignKey('companies.id'), nullable=False)
     name = db.Column(db.String(80), nullable=False)
     lang = db.Column(db.String(2), nullable=False)
-    created_at = db.Column(db.TIMESTAMP, default=dt.datetime.utcnow, nullable=False)
-    updated_at = db.Column(db.TIMESTAMP, onupdate=dt.datetime.utcnow)
 
 
-class Tag(db.Model):
+class Tag(db.Model, TimestampMixin):
     __tablename__ = 'tags'
     __table_args__ = (
         db.UniqueConstraint('tag'),
@@ -40,11 +35,9 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tag = db.Column(db.String(80), nullable=False)
     lang = db.Column(db.String(2), nullable=False)
-    created_at = db.Column(db.TIMESTAMP, default=dt.datetime.utcnow, nullable=False)
-    updated_at = db.Column(db.TIMESTAMP, onupdate=dt.datetime.utcnow)
 
 
-class CompanyTag(db.Model):
+class CompanyTag(db.Model, TimestampMixin):
     __tablename__ = 'company_tags'
     __table_args__ = (
         db.UniqueConstraint('company_id', 'tag_id'),
@@ -53,19 +46,14 @@ class CompanyTag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     company_id = db.Column(db.Integer, db.ForeignKey('companies.id'), nullable=False)
     tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), nullable=False)
-    created_at = db.Column(db.TIMESTAMP, default=dt.datetime.utcnow, nullable=False)
-    updated_at = db.Column(db.TIMESTAMP, onupdate=dt.datetime.utcnow)
 
     tag = db.relationship(Tag, lazy='joined')
 
 
-class SearchCompany(db.Model):
+class SearchCompany(db.Model, TimestampMixin):
     __tablename__ = 'search_companies'
 
     id = db.Column(db.Integer, primary_key=True)
     company_id = db.Column(db.Integer, db.ForeignKey('companies.id'), nullable=False)
     initial_index = db.Column(db.String(255), nullable=False)
     phoneme_index = db.Column(db.String(255), nullable=False)
-
-    created_at = db.Column(db.TIMESTAMP, default=dt.datetime.utcnow, nullable=False)
-    updated_at = db.Column(db.TIMESTAMP, onupdate=dt.datetime.utcnow)
