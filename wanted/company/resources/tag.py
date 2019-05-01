@@ -29,3 +29,14 @@ class CompanyTagListResource(Resource):
 
         return {}, 201
 
+
+class CompanyTagResource(Resource):
+
+    def delete(self, company_id, tag_id):
+        if not CompanyTag.query.filter_by(company_id=company_id, tag_id=tag_id).count():
+            return {}, 404
+
+        db.session.query(CompanyTag).filter_by(company_id=company_id, tag_id=tag_id).delete(synchronize_session=False)
+        db.session.commit()
+        return {}, 200
+
