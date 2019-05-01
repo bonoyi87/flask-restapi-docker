@@ -5,7 +5,8 @@ from flask_restful import Resource, fields, marshal_with
 from flask import request
 
 from utils.word import seperate_word
-from wanted.company.models import SearchCompany, Company
+from wanted.company.models import SearchCompany, Company, CompanyTag
+from wanted.company.models.company import Tag
 
 
 class SearchType(Enum):
@@ -48,3 +49,8 @@ class SearchCompanyResource(Resource):
 
             return base_query.all()
 
+        elif search_type == SearchType.TAG.value:
+            base_query = CompanyTag.query.join(Tag).filter(Tag.tag == q).with_entities(Company)
+            return base_query.all()
+
+        return {}, 400
