@@ -10,6 +10,12 @@ class Company(db.Model):
     created_at = db.Column(db.TIMESTAMP, default=dt.datetime.utcnow, nullable=False)
     updated_at = db.Column(db.TIMESTAMP, onupdate=dt.datetime.utcnow)
 
+    names = db.relationship('CompanyName',
+                            backref='companies', lazy='joined')
+
+    tags = db.relationship('CompanyTag',
+                           backref='companies', lazy='joined')
+
 
 class CompanyName(db.Model):
     __tablename__ = 'company_names'
@@ -49,6 +55,8 @@ class CompanyTag(db.Model):
     tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), nullable=False)
     created_at = db.Column(db.TIMESTAMP, default=dt.datetime.utcnow, nullable=False)
     updated_at = db.Column(db.TIMESTAMP, onupdate=dt.datetime.utcnow)
+
+    tag = db.relationship(Tag, lazy='joined')
 
 
 class SearchCompany(db.Model):
