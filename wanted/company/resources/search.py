@@ -3,8 +3,8 @@ from http import HTTPStatus
 from flask_restful import Resource, fields, marshal_with, abort
 from flask import request
 
-from utils.word import seperate_word, get_hangul, has_chosung
-from wanted.company.models import SearchCompany, Company, CompanyTag, Tag
+from wanted.company.models import Company, CompanyTag, Tag
+from wanted.company.services.search import service as search_service
 
 
 class SearchType(Enum):
@@ -33,16 +33,7 @@ class SearchCompanyResource(Resource):
         search_type = request.args.get('type', SearchType.COMPANY.value)  # 검색타입
         if search_type == SearchType.COMPANY.value:
 
-            only_hangul = get_hangul(q)
-            base_query = SearchCompany.query.join(Company).with_entities(Company).distinct()
-
-            if has_chosung(only_hangul):
-                # q 가 초성만 있다면 initial_index 에서 검색
-                base_query = base_query.filter(SearchCompany.initial_index.like('%{}%'.format(q)))
-            else:
-                base_query = base_query.filter(SearchCompany.phoneme_index.like('%{}%'.format(seperate_word(q))))
-
-            return base_query.all()
+            return search_service.search(q)
 
         elif search_type == SearchType.TAG.value:
             base_query = CompanyTag.query.join(Tag).filter(Tag.tag == q).with_entities(Company)
