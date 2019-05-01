@@ -1,10 +1,9 @@
-import re
 from enum import Enum
 
 from flask_restful import Resource, fields, marshal_with
 from flask import request
 
-from utils.word import seperate_word
+from utils.word import seperate_word, get_hangul, has_chosung
 from wanted.company.models import SearchCompany, Company, CompanyTag, Tag
 
 
@@ -34,14 +33,11 @@ class SearchCompanyResource(Resource):
         search_type = request.args.get('type', SearchType.COMPANY.value)  # 검색타입
         if search_type == SearchType.COMPANY.value:
 
-            regex_only_hangul = re.compile('[ㄱ-ㅎㅏ-ㅣ가-힣]')
-            only_hangul = "".join(regex_only_hangul.findall(q))
-            regex = re.compile(r"[ㄱ-ㅎ]")
-            has_chosung = regex.match(only_hangul)
-
+            only_hangul = get_hangul(q)
             base_query = SearchCompany.query.join(Company).with_entities(Company).distinct()
 
-            if has_chosung:
+            if has_chosung(only_hangul):
+                # q 가 초성만 있다면 initial_index 에거 검색
                 base_query = base_query.filter(SearchCompany.initial_index.like('%{}%'.format(q)))
             else:
                 base_query = base_query.filter(SearchCompany.phoneme_index.like('%{}%'.format(seperate_word(q))))

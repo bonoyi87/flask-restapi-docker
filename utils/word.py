@@ -1,4 +1,6 @@
 # 초성 리스트. 00 ~ 18
+import re
+
 CHOSUNG_LIST = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ']
 # 중성 리스트. 00 ~ 20
 JUNGSUNG_LIST = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ']
@@ -24,3 +26,23 @@ def seperate_word(word, only_chosung=False):
     return ''.join(r_lst) if r_lst else ''
 
 
+def get_hangul(val: str) -> str:
+    """
+    한글만 가져오기
+    :param val:
+    :return: str
+    """
+    regex_only_hangul = re.compile('[ㄱ-ㅎㅏ-ㅣ가-힣]')
+    return "".join(regex_only_hangul.findall(val))
+
+
+def has_chosung(val: str) -> bool:
+    """
+    초성만 포함되었는지 여부
+    :param val:
+    :return: bool
+    """
+    regex = re.compile(r"[ㄱ-ㅎ]")
+    if regex.match(val):
+        return True
+    return False
