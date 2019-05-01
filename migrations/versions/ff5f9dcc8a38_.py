@@ -68,7 +68,6 @@ def migrate():
     from wanted.company.models import Company, CompanyName, CompanyTag, SearchCompany
     from wanted.company.models.company import Tag
 
-    db.engine.execute("ALTER DATABASE wanted DEFAULT CHARACTER SET utf8")
     with open('wanted_temp_data.csv') as csv_file:
         csv_reader = csv.DictReader(csv_file, delimiter=',')
         for row in csv_reader:
