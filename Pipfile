@@ -11,6 +11,7 @@ flask-sqlalchemy = "*"
 flask-migrate = "*"
 mysqlclient = "*"
 environs = "*"
+flask-restful = "*"
 
 [requires]
 python_version = "3.7"
