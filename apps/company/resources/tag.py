@@ -3,10 +3,10 @@ from http import HTTPStatus
 from flask import request
 from flask_restful import Resource, abort
 
-from wanted.company.models import CompanyTag, Company
-from wanted.company.models.company import Tag
-from wanted.company.services.tag import service as tag_service
-from wanted.company.services.company_tag import service as company_tag_service
+from apps.company.models import CompanyTag, Company
+from apps.company.models.company import Tag
+from apps.company.services.tag import service as tag_service
+from apps.company.services.company_tag import service as company_tag_service
 
 
 class CompanyTagListResource(Resource):

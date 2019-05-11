@@ -1,6 +1,6 @@
 from utils.word import get_hangul, has_chosung, seperate_word
-from wanted.company.models import SearchCompany, Company
-from wanted.company.services import Service
+from apps.company.models import SearchCompany, Company
+from apps.company.services import Service
 
 
 class SearchCompanyService(Service):

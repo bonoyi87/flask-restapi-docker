@@ -1,10 +1,10 @@
 from flask import Flask
 
-from wanted.extensions import db, migrate
-from wanted import company
+from apps.extensions import db, migrate
+from apps import company
 
 
-def create_app(config_object='wanted.settings'):
+def create_app(config_object='apps.settings'):
     """An application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
 
     :param config_object: The configuration object to use.

@@ -1,5 +1,5 @@
-from wanted.company.models import CompanyTag
-from wanted.company.services import Service
+from apps.company.models import CompanyTag
+from apps.company.services import Service
 
 
 class CompanyTagService(Service):

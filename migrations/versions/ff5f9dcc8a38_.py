@@ -64,11 +64,11 @@ def get_phoneme_index(val):
 def migrate():
     import csv
 
-    from wanted.extensions import db
-    from wanted.company.models import Company, CompanyName, CompanyTag, SearchCompany
-    from wanted.company.models.company import Tag
+    from apps.extensions import db
+    from apps.company.models import Company, CompanyName, CompanyTag, SearchCompany
+    from apps.company.models.company import Tag
 
-    with open('wanted_temp_data.csv') as csv_file:
+    with open('data.csv') as csv_file:
         csv_reader = csv.DictReader(csv_file, delimiter=',')
         for row in csv_reader:
             company_ko = row.get('company_ko')

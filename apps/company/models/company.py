@@ -1,5 +1,5 @@
-from wanted.commons.database import TimestampMixin
-from wanted.extensions import db
+from apps.commons.database import TimestampMixin
+from apps.extensions import db
 
 
 class Company(db.Model, TimestampMixin):

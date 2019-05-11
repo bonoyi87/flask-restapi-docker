@@ -1,5 +1,3 @@
-# Wanted Backend 과제
-
 ### 환경 셋업 및 실행
 1. Docker 가 설치되어있지 않다면,각 환경에 맞는 [Docker 설치](https://docs.docker.com/install/)를 진행하여 주세요.
 2. ```$ docker-compose up --build``` 명령어를 통해 도커서버를 실행하여주세요.

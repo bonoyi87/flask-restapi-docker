@@ -1,8 +1,8 @@
 from flask import Blueprint
 from flask_restful import Api
 
-from wanted.company.resources.search import SearchCompanyResource
-from wanted.company.resources.tag import CompanyTagListResource, CompanyTagResource
+from apps.company.resources.search import SearchCompanyResource
+from apps.company.resources.tag import CompanyTagListResource, CompanyTagResource
 
 blueprint = Blueprint('api', __name__, url_prefix='/v1')
 api = Api(blueprint)

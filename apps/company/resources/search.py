@@ -3,8 +3,8 @@ from http import HTTPStatus
 from flask_restful import Resource, fields, marshal_with, abort
 from flask import request
 
-from wanted.company.models import Company, CompanyTag, Tag
-from wanted.company.services.search import service as search_service
+from apps.company.models import Company, CompanyTag, Tag
+from apps.company.services.search import service as search_service
 
 
 class SearchType(Enum):

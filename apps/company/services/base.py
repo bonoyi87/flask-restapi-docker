@@ -1,4 +1,4 @@
-from wanted.extensions import db
+from apps.extensions import db
 
 
 class Service:
